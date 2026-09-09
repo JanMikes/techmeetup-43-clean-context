@@ -60,6 +60,14 @@ slide, edit the text inside it.
 Slide count in the counter is derived automatically, so adding or removing a
 section needs no other change.
 
+## Building another deck like this
+
+`DECK-RECIPE.md` is a complete spec of the design system and delivery pipeline —
+theming, responsive scale, terminal styling, photo pipeline, ASCII diagrams,
+GitHub Pages + Cloudflare, and the verification scripts. Hand it to a fresh
+Claude Code session along with your content and it should not need to read this
+repo.
+
 ## Deployment
 
 GitHub Pages from `main`, custom domain via `CNAME`.
