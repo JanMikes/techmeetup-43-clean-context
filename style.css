@@ -384,6 +384,9 @@ a.quiet:hover { color: var(--green); }
 
   .term { font-size: 0.85rem; padding: 1rem 1.1rem; line-height: 1.55; }
   .term.xl { font-size: 0.95rem; }
+  /* .sm is a two-class selector, so it outranks the .term rule above and
+     would otherwise render LARGER than the mobile base. */
+  .term.sm { font-size: 0.72rem; }
   .diagram { font-size: 0.7rem; }
 
   .numbers { font-size: 1.5rem; }

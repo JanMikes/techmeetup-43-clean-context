@@ -262,12 +262,16 @@ Subscription: you stall until reset</pre>
 <!-- 21 -->
 <section class="slide">
   <h2>IT WILL LAND EARLY</h2>
-  <p class="sub">the most likely failure is not a crash.</p>
-  <p class="sub">it decides it has done <span class="dim">"enough"</span><br>and writes you a lovely summary.</p>
+  <p class="sub">not a crash. it decides it has done <span class="dim">"enough"</span>.</p>
   <pre class="term warn">  "I have completed the implementation!"</pre>
-  <pre class="term">you type:  <mark>continue</mark></pre>
+  <h1 class="h1-mid">SO <mark>YOU</mark> DEFINE "DONE".</h1>
+  <pre class="term sm"><span class="dim"># the only exit condition, in the prompt</span>
+loop until every WP is <mark>DONE</mark> or <mark>BLOCKED</mark>
+
+<span class="dim"># and enforce it, so it cannot opt out</span>
+Stop hook: refuse to stop while TODO remains</pre>
   <div class="act">act 4 · turbulence</div>
-  <aside class="notes-src">Optional extra beat if you have time: a Stop hook that refuses to stop while the ledger still has TODO items — the ralph-loop pattern. Cut it if you're behind.</aside>
+  <aside class="notes-src"><b>This is the failure that defeats the whole approach</b> — everything else in the talk builds a session that runs unattended, and this is the one thing that quietly ends it while you sleep.<br><br>The fix is not "type continue". It is that <b>you</b> own the stopping condition. The ledger makes "done" checkable: a row is DONE or BLOCKED, and that is a fact in a file rather than a feeling in the model. The Stop hook (the ralph-loop pattern) enforces it — the session is not allowed to stop while any package is still TODO.<br><br>If you leave "done" undefined, the model defines it for you. It defines it generously.</aside>
 </section>
 
 <!-- 22 -->

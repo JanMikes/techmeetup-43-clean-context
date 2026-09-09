@@ -102,7 +102,7 @@ CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION=1000 claude --permission-mode bypassPer
   <li><b>A different agent reviews the work</b><span>Separate reviewer, bounded rounds — max 3, then the package is marked BLOCKED.</span></li>
   <li><b>Push after every package</b><span>A crash costs one package instead of a day.</span></li>
   <li><b>Write the resume note early</b><span>Before the conversation grows long, and read it first after any compaction. This is the survival mechanism.</span></li>
-  <li><b>Blocked is not stopped</b><span>Write a blocker brief, take the next package, stop only when nothing can proceed.</span></li>
+  <li><b>Blocked is not stopped — and you define done</b><span>Write a blocker brief, take the next package. The exit condition is every package DONE or BLOCKED, checkable in the ledger rather than decided by the model — enforce it with a Stop hook so the session cannot opt out early.</span></li>
 </ol>
 
 <h2><span class="num">03</span>The orchestrator prompt</h2>
@@ -136,7 +136,14 @@ First action: install docs/technical/CLAUDE.md.proposed as /CLAUDE.md as part of
 
 <h2><span class="num">04</span>What it costs you (the honest part)</h2>
 <ul class="honest">
-  <li><b>It will stop too early.</b> Not a crash — it decides it has done "enough" and writes a summary. You type <mark>continue</mark>. A Stop hook that refuses to stop while the ledger has TODO items fixes it properly.</li>
+  <li><b>It will stop too early — unless you define "done".</b> Not a crash: it decides it
+    has done "enough" and writes you a tidy summary. This is the one failure that defeats the
+    entire point of an unattended run, so do not leave it to the model's judgement. Two things
+    fix it, and you want both: an explicit exit condition in the prompt
+    (<em>loop until every work package is DONE or BLOCKED</em>), and a Stop hook that refuses to
+    let the session stop while the ledger still holds a TODO row — the ralph-loop pattern. The
+    ledger is what makes this work: it turns "done" into <mark>a fact in a file</mark> rather than
+    a feeling in the model. Leave it undefined and the model defines it for you, generously.</li>
   <li><b>There is no budget cap.</b> API mode ran $500–2000 for a plan this size. On a subscription you stall until the limit resets. You are the only brake.</li>
   <li><b>Blast radius.</b> Bypass mode means the agents can run anything. Dedicated VM or user account, not the laptop with your production keys.</li>
   <li><b>Quality drifts.</b> Fresh contexts don't remember conventions established three packages ago, except through the code and CLAUDE.md. Expect a cleanup package per milestone.</li>
