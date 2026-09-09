@@ -24,11 +24,18 @@ python3 -m http.server 8000    # if you want a local server
 | `N` | speaker notes |
 | `O` | overview grid (click a slide to jump) |
 | `F` | fullscreen |
+| `T` | light / dark theme (remembered per browser) |
 | `home` / `end` | first / last slide |
 | `?` | keyboard help |
 
-Click anywhere also advances. The URL tracks the slide (`#/12`), so a mid-talk
-reload puts you back where you were.
+Click anywhere also advances. On phones and tablets there are ‹ › buttons in
+the bottom corners, and swiping works. The URL tracks the slide (`#/12`), so a
+mid-talk reload puts you back where you were.
+
+**Theme:** press `T` to flip between the dark terminal look and a light one.
+Decide which on the actual projector — dark looks better on a screen, light
+survives a bright room and a weak projector far better. The choice is stored
+per browser, so set it once on the presenting machine.
 
 **PDF backup:** `Cmd+P` → Save as PDF. The print stylesheet lays it out one
 slide per landscape page. Do this before the talk and keep it on the desktop.
@@ -38,7 +45,9 @@ slide per landscape page. Do this before the talk and keep it on the desktop.
 `index.html` is 26 `<section class="slide">` blocks in running order. To change a
 slide, edit the text inside it.
 
-- `<mark>` — accent highlight (green). `<mark class="warn">` amber, `<mark class="bad">` red.
+- `<mark>` — accent highlight. `<mark class="warn">` amber, `<mark class="bad">` red.
+  Colours come from CSS custom properties and flip with the theme, so never
+  hard-code a hex value in a slide.
 - `<pre class="term">` — terminal block. Add `xl` for bigger, `quote` for a prompt excerpt.
 - `<aside class="notes-src">` — speaker notes for that slide, shown with `N`.
 - `.marker` (top right) and `.act` (bottom left) are the flight/act labels.

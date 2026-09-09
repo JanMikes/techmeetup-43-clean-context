@@ -24,6 +24,20 @@ html {
   background: var(--bg);
 }
 
+/* Light theme. Same token names, so every rule below works unchanged.
+   Accents are darkened: the dark-mode green/amber fail contrast on a light ground. */
+body.light {
+  --bg:      #f5f3ee;
+  --panel:   #e7e4db;
+  --fg:      #14181a;
+  --dim:     #6b746f;
+  --green:   #06703a;
+  --amber:   #8a5200;
+  --red:     #b3261e;
+  --line:    #d6d2c7;
+}
+html.light { background: #f5f3ee; }
+
 * { box-sizing: border-box; }
 
 body {
@@ -49,6 +63,8 @@ body {
   justify-content: center;
   padding: 5vh 6vw;
   gap: 1.4rem;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .slide.is-active {
@@ -128,6 +144,9 @@ mark.bad  { color: var(--red); }
 .s-statement { justify-content: center; }
 .s-statement h1 { font-size: 5.4rem; }
 .s-statement .after { color: var(--dim); font-size: 1.5rem; margin-top: 1rem; }
+
+.h1-mid { font-size: 3.5rem; }
+.mt { margin-top: 2rem; }
 
 /* ---------- title / closing ---------- */
 
@@ -217,6 +236,7 @@ ul.ladder { margin: 0; padding: 0; }
 .diagram {
   font-size: 1.3rem; line-height: 1.5; white-space: pre;
   color: var(--fg);
+  overflow-x: auto; max-width: 100%;
 }
 .diagram .note { color: var(--dim); }
 
@@ -314,6 +334,81 @@ a.quiet:hover { color: var(--green); }
 .jump .t { color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .jump .a { color: var(--dim); font-size: 0.8rem; margin-left: auto; flex: none; }
 
+
+/* ---------- touch / small screens ----------
+   Two problems this solves: slide type sized for a projector overflows a
+   phone, and "click anywhere to advance" gives no way back and no hint that
+   swiping works. So: a smaller scale, and real buttons. */
+
+.tapnav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  display: none; justify-content: space-between;
+  padding: 0.6rem 0.9rem 1.1rem;
+  z-index: 45; pointer-events: none;
+}
+.tapnav button {
+  pointer-events: auto;
+  font-family: var(--mono); font-size: 1.5rem; line-height: 1;
+  color: var(--fg); background: var(--panel);
+  border: 1px solid var(--line); border-radius: 999px;
+  width: 3rem; height: 3rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.tapnav button:disabled { opacity: 0.3; }
+.tapnav button:active { background: var(--green); color: var(--bg); }
+
+@media (pointer: coarse), (max-width: 860px) {
+  .tapnav { display: flex; }
+  .counter { bottom: auto; top: 1.2rem; right: 1.2rem; }
+  .slide { padding: 4vh 5vw 6rem; gap: 1rem; }
+
+  h1 { font-size: 2.3rem; }
+  h2 { font-size: 1.9rem; }
+  h3 { font-size: 1rem; }
+  p  { font-size: 1rem; }
+
+  .sub { font-size: 1.05rem; }
+  .byline { font-size: 0.8rem; }
+  .small { font-size: 0.85rem; }
+
+  .s-title h1 { font-size: 2.9rem; }
+  .s-title .sub { font-size: 1.15rem; }
+  .s-statement h1 { font-size: 2.4rem; }
+  .s-statement .after { font-size: 1rem; }
+  .h1-mid { font-size: 1.9rem; }
+  .mt { margin-top: 1.2rem; }
+
+  .term { font-size: 0.85rem; padding: 1rem 1.1rem; line-height: 1.55; }
+  .term.xl { font-size: 0.95rem; }
+  .diagram { font-size: 0.7rem; }
+
+  .numbers { font-size: 1.5rem; }
+  .numbers .n { min-width: 2.5ch; margin-right: 0.7rem; }
+  .ladder { font-size: 1.25rem; gap: 0.5rem; }
+  .ladder .last { font-size: 1.5rem; }
+  .xlist { font-size: 1.1rem; gap: 0.5rem; }
+  .deflist { font-size: 1rem; gap: 0.8rem; }
+  .deflist .k { display: block; min-width: 0; }
+
+  .s-rule h2 { font-size: 2rem; }
+  .s-rule .why { font-size: 1.05rem; }
+  .s-rule { gap: 1.1rem; }
+
+  .marker { top: 1.2rem; right: auto; left: 5vw; font-size: 0.75rem; }
+  .act { bottom: auto; top: 1.2rem; left: 5vw; display: none; }
+
+  .s-flight .plane { font-size: 3rem; }
+  .s-flight h2 { font-size: 1.9rem; }
+
+  .closing-grid { gap: 1.5rem; }
+  .qr { width: 9rem; height: 9rem; }
+  .url { font-size: 1.5rem; }
+
+  .jump { padding: 5vh 5vw; }
+  .jump ol { columns: 1; }
+  .notes { max-height: 55vh; padding: 1rem 5vw 5rem; }
+}
+
 /* ---------- print / PDF export ---------- */
 
 @media print {
@@ -326,6 +421,7 @@ a.quiet:hover { color: var(--green); }
     width: 297mm; height: 167mm; page-break-after: always;
     animation: none; break-inside: avoid;
   }
-  .progress, .counter, .notes, .help, .copy-btn { display: none !important; }
+  .progress, .counter, .notes, .help, .copy-btn,
+  .tapnav, .jump { display: none !important; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }

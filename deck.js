@@ -10,10 +10,24 @@
   var help     = document.getElementById('help');
   var jump     = document.getElementById('jump');
   var jumpList = document.getElementById('jump-list');
+  var tapPrev  = document.getElementById('tap-prev');
+  var tapNext  = document.getElementById('tap-next');
   var total    = slides.length;
   var current  = 0;
 
   counter.innerHTML = '<span class="cur">1</span> / ' + total;
+
+  /* ---------- theme ---------- */
+
+  function setTheme(light) {
+    document.body.classList.toggle('light', light);
+    document.documentElement.classList.toggle('light', light);
+    try { localStorage.setItem('cc-theme', light ? 'light' : 'dark'); } catch (e) {}
+  }
+
+  try {
+    if (localStorage.getItem('cc-theme') === 'light') setTheme(true);
+  } catch (e) { /* private window, blocked storage — dark is the default anyway */ }
 
   /* ---------- jump index, built from the slides themselves ---------- */
 
@@ -63,6 +77,9 @@
     var src = slides[current].querySelector('.notes-src');
     notesBody.innerHTML = src ? src.innerHTML : '<span style="opacity:.5">no notes for this slide</span>';
 
+    tapPrev.disabled = current === 0;
+    tapNext.disabled = current === total - 1;
+
     if (push !== false) {
       history.replaceState(null, '', '#/' + (current + 1));
     }
@@ -103,6 +120,11 @@
       e.preventDefault();
       return;
     }
+    if (k === 't' || k === 'T') {
+      setTheme(!document.body.classList.contains('light'));
+      e.preventDefault();
+      return;
+    }
     if (k === 'f' || k === 'F') {
       if (document.fullscreenElement) { document.exitFullscreen(); }
       else { document.documentElement.requestFullscreen(); }
@@ -126,9 +148,12 @@
 
   /* ---------- pointer ---------- */
 
+  tapPrev.addEventListener('click', prev);
+  tapNext.addEventListener('click', next);
+
   document.addEventListener('click', function (e) {
     // never hijack real controls
-    if (e.target.closest('button, a, .notes, .help, .jump, input, textarea')) return;
+    if (e.target.closest('button, a, .notes, .help, .jump, .tapnav, input, textarea')) return;
     if (jump.classList.contains('is-open')) return;
     next();
   });
