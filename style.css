@@ -13,6 +13,9 @@
   --amber:   #ffc14d;
   --red:     #ff6b5e;
   --line:    #202829;
+  --fg-soft: #cfd6d2;   /* quoted prompt text: softer than --fg, still readable */
+  --overlay: #060809;   /* notes / help / jump backdrops */
+  --overlay-fg: #c6cfca;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco,
           "Cascadia Mono", "Roboto Mono", Consolas, monospace;
 }
@@ -30,11 +33,14 @@ body.light {
   --bg:      #f5f3ee;
   --panel:   #e7e4db;
   --fg:      #14181a;
-  --dim:     #6b746f;
+  --dim:     #5c6560;
   --green:   #06703a;
   --amber:   #8a5200;
   --red:     #b3261e;
   --line:    #d6d2c7;
+  --fg-soft: #2f3639;
+  --overlay: #ffffff;
+  --overlay-fg: #2f3639;
 }
 html.light { background: #f5f3ee; }
 
@@ -130,7 +136,7 @@ mark.bad  { color: var(--red); }
   tab-size: 2;
 }
 
-.term.quote  { border-left-color: var(--dim); color: #cfd6d2; }
+.term.quote  { border-left-color: var(--dim); color: var(--fg-soft); }
 .term.warn   { border-left-color: var(--amber); }
 .term.bad    { border-left-color: var(--red); }
 .term.plain  { background: none; border: none; padding: 0; }
@@ -282,10 +288,10 @@ a.quiet:hover { color: var(--green); }
 .notes {
   position: fixed; left: 0; right: 0; bottom: 0;
   max-height: 42vh; overflow-y: auto;
-  background: #060809;
+  background: var(--overlay);
   border-top: 2px solid var(--amber);
   padding: 1.4rem 6vw 2rem;
-  font-size: 1.1rem; line-height: 1.55; color: #c6cfca;
+  font-size: 1.1rem; line-height: 1.55; color: var(--overlay-fg);
   z-index: 50; display: none;
 }
 .notes.is-open { display: block; }
@@ -296,11 +302,12 @@ a.quiet:hover { color: var(--green); }
 }
 
 .help {
-  position: fixed; inset: 0; background: rgba(6,8,9,0.96);
+  position: fixed; inset: 0; background: var(--overlay);
   z-index: 60; display: none; padding: 8vh 8vw;
   font-size: 1.3rem; line-height: 2;
 }
 .help.is-open { display: block; }
+.help { color: var(--overlay-fg); }
 .help kbd {
   background: var(--panel); border: 1px solid var(--line);
   border-radius: 3px; padding: 0.15em 0.6em; color: var(--green);
@@ -312,7 +319,7 @@ a.quiet:hover { color: var(--green); }
    and slide type is rem-based so it would not scale into one anyway. */
 .jump {
   position: fixed; inset: 0; z-index: 55;
-  background: #060809;
+  background: var(--overlay);
   padding: 6vh 8vw; overflow-y: auto;
   display: none;
 }
@@ -333,7 +340,7 @@ a.quiet:hover { color: var(--green); }
 .jump li.cur { background: var(--panel); box-shadow: inset 3px 0 0 var(--green); }
 .jump li.cur .t { color: var(--green); }
 .jump .i { color: var(--dim); min-width: 2.5ch; text-align: right; flex: none; }
-.jump .t { color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jump .t { color: var(--overlay-fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .jump .a { color: var(--dim); font-size: 0.8rem; margin-left: auto; flex: none; }
 
 
