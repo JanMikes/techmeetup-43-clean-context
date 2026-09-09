@@ -42,7 +42,7 @@ slide per landscape page. Do this before the talk and keep it on the desktop.
 
 ## Editing
 
-`index.html` is 26 `<section class="slide">` blocks in running order. To change a
+`index.html` is 27 `<section class="slide">` blocks in running order. To change a
 slide, edit the text inside it.
 
 - `<mark>` — accent highlight. `<mark class="warn">` amber, `<mark class="bad">` red.
@@ -52,7 +52,7 @@ slide, edit the text inside it.
 - `<aside class="notes-src">` — speaker notes for that slide, shown with `N`.
 - `.marker` and `.act` are hidden on the slides (`display: none`) but kept in
   the markup: the jump list reads `.act` for its right-hand column and for the
-  `CUT IF LONG` flag on slide 22.
+  `CUT IF LONG` flag on the "rest of the bill" slide.
 - The title portrait is `janmikes-{320,480,640}.webp`, square crops served via
   `srcset`. Regenerate from a new source with:
   `magick photo.png -crop WxH+X+Y +repage -resize 640x640 -strip -quality 82 janmikes-640.webp`

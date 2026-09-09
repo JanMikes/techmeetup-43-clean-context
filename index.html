@@ -47,7 +47,7 @@
     <li class="last">A WEEK?</li>
   </ul>
   <div class="act">act 0 · hook</div>
-  <aside class="notes-src"><b>90 seconds. This is the whole opening.</b> Ladder format: everyone puts a hand up, hands drop as you climb. Last person standing gets the mic for five seconds — ask them what they were building. <b>Remember their name.</b> You call back to them on slide 23.</aside>
+  <aside class="notes-src"><b>90 seconds. This is the whole opening.</b> Ladder format: everyone puts a hand up, hands drop as you climb. Last person standing gets the mic for five seconds — ask them what they were building. <b>Remember their name.</b> You call back to them at the &ldquo;name three rules&rdquo; slide near the end.</aside>
 </section>
 
 <!-- 3 -->
@@ -65,7 +65,7 @@
   <div class="numbers">
     <div><span class="n">42</span>work packages</div>
     <div><span class="n">3</span>milestones</div>
-    <div><span class="n">0</span>lines of code written by me</div>
+    <div><span class="n">0</span>lines of code I wrote</div>
     <div><span class="n">1</span>paste</div>
   </div>
   <div class="act">act 1 · what happened</div>
@@ -73,6 +73,16 @@
 </section>
 
 <!-- 5 -->
+<section class="slide">
+  <h3>TO ME, THAT WAS JUST A WEEK</h3>
+  <p class="sub">then I mentioned it to a friend.</p>
+  <h1>"WAIT.<br>HOW DID YOU<br>DO THAT?"</h1>
+  <p class="sub dim">that reaction is the only reason<br>this talk exists.</p>
+  <div class="act">act 1 · what happened</div>
+  <aside class="notes-src"><b>This is the warm beat — don't rush it.</b> Deliver the first line as a genuine shrug, because it was: to you this was an ordinary week. The friend's reaction is what made you realise it isn't ordinary to everyone.<br><br>It also quietly answers the question every lightning-talk audience is asking in the first minute: <i>why is this person telling me this?</i></aside>
+</section>
+
+<!-- 6 -->
 <section class="slide s-statement">
   <h1>THE CONVERSATION<br>IS NOT<br>THE MEMORY.</h1>
   <p class="after">memory = <mark>PROGRESS.md</mark> + <mark>git history</mark> + <mark>CLAUDE.md</mark></p>
@@ -80,7 +90,7 @@
   <aside class="notes-src">If they remember one <i>concept</i> from tonight, this is it. The context window will fill. So stop using it as storage. Everything else in the talk is a consequence of this one line.</aside>
 </section>
 
-<!-- 6 -->
+<!-- 7 -->
 <section class="slide">
   <h3>THE SHAPE</h3>
   <pre class="diagram">            <span class="gr">ORCHESTRATOR</span>      <span class="note">← reads only the ledger</span>
@@ -99,7 +109,7 @@
 
 <!-- ══════════════════ ACT 2 · THE RELEASE ══════════════════ -->
 
-<!-- 7 -->
+<!-- 8 -->
 <section class="slide">
   <h1>YOU DON'T NEED TO<br>REMEMBER<br>ANY OF THIS.</h1>
   <p class="sub">Claude Code will do all of it for you.</p>
@@ -108,7 +118,7 @@
   <aside class="notes-src"><b>This is the pressure valve — say it out loud.</b> "Nothing in the next four minutes is homework. I'll give you the actual thing you need at the end. This part is just because you're curious." Also drop the URL verbally here: it's already online, that's <i>why</i> you don't need notes.</aside>
 </section>
 
-<!-- 8 -->
+<!-- 9 -->
 <section class="slide s-flight">
   <div class="plane">✈</div>
   <h2>FASTEN SEATBELTS</h2>
@@ -118,7 +128,7 @@
 
 <!-- ══════════════════ ACT 3 · THE FLY-BY ══════════════════ -->
 
-<!-- 9 -->
+<!-- 10 -->
 <section class="slide">
   <div class="marker">preflight</div>
   <h3>LAUNCH</h3>
@@ -131,10 +141,10 @@
 
 <span class="gr">$</span> claude --permission-mode <mark>bypassPermissions</mark></pre>
   <div class="act">act 3 · fly-by</div>
-  <aside class="notes-src">Point at <b>bypassPermissions</b>: "This is the 'I trust you' button. Not on the laptop with your prod SSH keys. Ask me how I know. — Actually, don't." <br><br>Don't explain tmux/caffeinate yet. They're the setup for the callback on slide 21.</aside>
+  <aside class="notes-src">Point at <b>bypassPermissions</b>: "This is the 'I trust you' button. Not on the laptop with your prod SSH keys. Ask me how I know. — Actually, don't." <br><br>Don't explain tmux/caffeinate yet. They're the setup for the callback on the &ldquo;things that killed my session&rdquo; slide.</aside>
 </section>
 
-<!-- 10 -->
+<!-- 11 -->
 <section class="slide s-rule">
   <div class="marker"><span class="cur">01</span> / 08 · cruising</div>
   <h2>THE BOSS NEVER<br>OPENS THE REPO</h2>
@@ -145,7 +155,7 @@
   <aside class="notes-src">25 seconds. Read the rule, read the why, move. No elaboration — you already told them this isn't homework.</aside>
 </section>
 
-<!-- 11 -->
+<!-- 12 -->
 <section class="slide s-rule">
   <div class="marker"><span class="cur">02</span> / 08 · cruising</div>
   <h2>FRESH CONTEXT PER<br>UNIT OF WORK</h2>
@@ -156,7 +166,7 @@
   <aside class="notes-src">The orchestrator is fine forever. The <i>implementers</i> are the ones with a ceiling. This is why any package bigger than a day gets split before it's delegated.</aside>
 </section>
 
-<!-- 12 -->
+<!-- 13 -->
 <section class="slide s-rule">
   <div class="marker"><span class="cur">03</span> / 08 · cruising</div>
   <h2>STATE LIVES<br>IN FILES</h2>
@@ -164,10 +174,10 @@
  and subagent reports"</pre>
   <p class="why"><span class="arrow">→</span> files survive compaction. <mark class="warn">chat doesn't</mark></p>
   <div class="act">act 3 · fly-by</div>
-  <aside class="notes-src">Callback to slide 5. Same idea, now as an operational rule.</aside>
+  <aside class="notes-src">Callback to &ldquo;the conversation is not the memory&rdquo;. Same idea, now as an operational rule.</aside>
 </section>
 
-<!-- 13 -->
+<!-- 14 -->
 <section class="slide s-rule">
   <div class="marker"><span class="cur">04</span> / 08 · cruising</div>
   <h2>NEVER TRUST<br>THE REPORT</h2>
@@ -177,7 +187,7 @@
   <aside class="notes-src">The joke: <b>"...like a junior dev at 17:55 on a Friday."</b> Not malicious. Just optimistic. This is the single most valuable rule in the list and it costs one line of prompt.</aside>
 </section>
 
-<!-- 14 -->
+<!-- 15 -->
 <section class="slide s-rule">
   <div class="marker"><span class="cur">05</span> / 08 · cruising</div>
   <h2>A DIFFERENT AGENT<br>REVIEWS THE WORK</h2>
@@ -188,7 +198,7 @@
   <aside class="notes-src">Emphasise <b>max 3</b>. Without a bound, a bad package eats your whole night and your whole quota.</aside>
 </section>
 
-<!-- 15 -->
+<!-- 16 -->
 <section class="slide s-rule">
   <div class="marker"><span class="cur">06</span> / 08 · cruising</div>
   <h2>PUSH AFTER<br>EVERY PACKAGE</h2>
@@ -198,7 +208,7 @@
   <aside class="notes-src">Small green commits. If someone looks skeptical about pushing to main unattended: pre-commit secret scan plus the reviewer agent are the guardrails, and it's a fresh repo.</aside>
 </section>
 
-<!-- 16 -->
+<!-- 17 -->
 <section class="slide s-rule">
   <div class="marker"><span class="cur">07</span> / 08 · cruising</div>
   <h2>WRITE THE RESUME<br>NOTE EARLY</h2>
@@ -209,7 +219,7 @@
   <aside class="notes-src">If you had to keep exactly one rule from the eight, it's this one. Everything else is optimisation; this is what makes the session survive itself.</aside>
 </section>
 
-<!-- 17 -->
+<!-- 18 -->
 <section class="slide s-rule">
   <div class="marker"><span class="cur">08</span> / 08 · descending</div>
   <h2>BLOCKED ≠ STOPPED</h2>
@@ -222,7 +232,7 @@
 
 <!-- ══════════════════ ACT 4 · TURBULENCE ══════════════════ -->
 
-<!-- 18 -->
+<!-- 19 -->
 <section class="slide">
   <h3>TURBULENCE</h3>
   <h1>AUTOCOMPACT<br>IS NOT THE ENEMY.</h1>
@@ -235,7 +245,7 @@ nothing commits until it's green</pre>
   <aside class="notes-src"><b>Ask first, then reveal:</b> "Hands up — who has seen 'compacting conversation' and felt a small death?" <br><br>Wait for hands. Then the slide. This is your best transition: turbulence that turns out to be completely normal.</aside>
 </section>
 
-<!-- 19 -->
+<!-- 20 -->
 <section class="slide">
   <h2>THERE IS NO<br>AUTOPILOT LIMIT</h2>
   <pre class="term bad">no budget cap.
@@ -249,7 +259,7 @@ Subscription: you stall until reset</pre>
   <aside class="notes-src"><b>Ask:</b> "Hands up who has hit a weekly limit." Guaranteed laugh in this room. <br><br>Be honest about the number — the credibility of the whole talk rests on not overselling this.</aside>
 </section>
 
-<!-- 20 -->
+<!-- 21 -->
 <section class="slide">
   <h2>IT WILL LAND EARLY</h2>
   <p class="sub">the most likely failure is not a crash.</p>
@@ -260,7 +270,7 @@ Subscription: you stall until reset</pre>
   <aside class="notes-src">Optional extra beat if you have time: a Stop hook that refuses to stop while the ledger still has TODO items — the ralph-loop pattern. Cut it if you're behind.</aside>
 </section>
 
-<!-- 21 -->
+<!-- 22 -->
 <section class="slide">
   <h2>THINGS THAT KILLED<br>MY SESSION</h2>
   <ul class="xlist">
@@ -270,37 +280,37 @@ Subscription: you stall until reset</pre>
     <li><span class="x">✗</span>rate limit at 03:41</li>
     <li><span class="x">✗</span>"I have completed the implementation!"</li>
   </ul>
-  <p class="sub dim">…that's why slide 9 had <mark>tmux</mark> and <mark>caffeinate</mark>.</p>
+  <p class="sub dim">…that's why the launch slide had <mark>tmux</mark> and <mark>caffeinate</mark>.</p>
   <div class="act">act 4 · turbulence</div>
-  <aside class="notes-src"><b>Callback payoff.</b> If they laughed at bypassPermissions on slide 9, this is where it pays off. Land the last line with a shrug.</aside>
+  <aside class="notes-src"><b>Callback payoff.</b> If they laughed at bypassPermissions on the launch slide, this is where it pays off. Land the last line with a shrug.</aside>
 </section>
 
-<!-- 22 -->
+<!-- 23 -->
 <section class="slide">
   <h3>AND THE REST OF THE BILL</h3>
   <div class="deflist">
     <div><span class="k">BLAST RADIUS</span> bypass = it can run anything</div>
     <div><span class="k">QUALITY DRIFT</span> fresh context forgets your conventions</div>
     <div><span class="k">TESTS LIE</span> weak assertions pass verify AND review</div>
-    <div><span class="k">THE PLAN LIES</span> 42 packages written without running code</div>
+    <div><span class="k">THE PLAN IS A GUESS</span> 42 packages ordered before any code ran</div>
   </div>
   <p class="sub">it degrades <mark>gracefully</mark>. it does not degrade to zero.</p>
   <div class="act">act 4 · turbulence · CUT IF LONG</div>
-  <aside class="notes-src"><b>This is the first slide to cut if you are over time.</b> If you keep it: "Check the ledger twice a day. Like a tamagotchi."</aside>
+  <aside class="notes-src"><b>This is the first slide to cut if you are over time.</b> If you keep it: "Check the ledger twice a day. Like a tamagotchi."<br><br>On <b>THE PLAN IS A GUESS</b>: the whole 42-package plan was written before a line of code ran. It is precise — numbered, dependency-ordered — and precision reads as accuracy. It is not. You find out which packages were wrong-sized or wrongly ordered hours into execution, which is why the ledger has a "discovered work" section.</aside>
 </section>
 
 <!-- ══════════════════ ACT 5 · LANDING ══════════════════ -->
 
-<!-- 23 -->
+<!-- 24 -->
 <section class="slide s-statement">
   <h1>QUICK — NAME THREE<br>OF THE EIGHT RULES.</h1>
   <p class="after">…</p>
   <p class="after">exactly. and it <mark>doesn't matter</mark>.</p>
   <div class="act">act 5 · landing</div>
-  <aside class="notes-src">Actually pause. Let it get uncomfortable for two full seconds — the silence <i>is</i> the joke. Optional callback: point at the poll winner from slide 2 — "even you. Your record session was forty sessions in a trench coat."</aside>
+  <aside class="notes-src">Actually pause. Let it get uncomfortable for two full seconds — the silence <i>is</i> the joke. Optional callback: point at the poll winner from the opening — "even you. Your record session was forty sessions in a trench coat."</aside>
 </section>
 
-<!-- 24 -->
+<!-- 25 -->
 <section class="slide">
   <h3>THE ONLY SLIDE THAT MATTERS</h3>
   <pre class="term xl" id="the-prompt"><span class="gr">$</span> claude
@@ -316,7 +326,7 @@ Subscription: you stall until reset</pre>
   <aside class="notes-src"><b>HOLD THIS SLIDE. This is the photo.</b> Wait for phones to come up before you talk.<br><br>"Every single rule I just flew through — the orchestrator, the fresh contexts, the ledger, the resume note, the bounded review loops — I didn't invent any of it. I asked <i>that</i>. What I showed you is Claude's answer, pasted."</aside>
 </section>
 
-<!-- 25 -->
+<!-- 26 -->
 <section class="slide">
   <h2>CLAUDE CLAUDING</h2>
   <pre class="term">it knows its own subagents
@@ -328,7 +338,7 @@ it knows its own failure modes</pre>
   <aside class="notes-src">The actual thesis. Prompt libraries go stale in weeks; the model ships with current knowledge of its own harness. Ask it.</aside>
 </section>
 
-<!-- 26 -->
+<!-- 27 -->
 <section class="slide s-closing">
   <div class="closing-grid">
     <div class="qr"><img src="qr.svg" alt="QR code to techmeetup-43-1.janmikes.cz"></div>
