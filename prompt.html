@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The full prompt — CLEAN CONTEXT · Jan Mikeš</title>
+<meta name="description" content="The full orchestrator prompt for a multi-day autonomous Claude Code session.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+<style>
+:root{
+  --bg:#0a0c0d; --panel:#101618; --fg:#e9ecea; --dim:#74827d;
+  --green:#4ff08c; --amber:#ffc14d; --red:#ff6b5e; --line:#202829;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Monaco,"Cascadia Mono","Roboto Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--fg);font-family:var(--mono);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:82ch;margin:0 auto;padding:4rem 1.5rem 8rem}
+a{color:var(--green)}
+a.back{color:var(--dim);text-decoration:none;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase}
+a.back:hover{color:var(--green)}
+h1{font-size:2.6rem;line-height:1.1;letter-spacing:-.03em;margin:2rem 0 .5rem}
+h2{font-size:1.35rem;margin:3.5rem 0 1rem;letter-spacing:-.01em;
+   border-bottom:1px solid var(--line);padding-bottom:.6rem}
+h2 .num{color:var(--green);margin-right:.7rem}
+p{margin:0 0 1rem}
+.lede{color:var(--dim);font-size:1.05rem}
+pre{
+  background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--green);
+  border-radius:3px;padding:1.3rem 1.5rem;overflow-x:auto;font-size:.9rem;
+  line-height:1.7;white-space:pre-wrap;word-wrap:break-word;margin:0;
+}
+pre.cmd{white-space:pre;border-left-color:var(--amber)}
+.block{margin:0 0 1.5rem}
+.bar{display:flex;align-items:center;gap:1rem;margin:.8rem 0 0}
+button{
+  font-family:var(--mono);font-size:.8rem;font-weight:700;letter-spacing:.06em;
+  color:var(--bg);background:var(--green);border:0;border-radius:3px;
+  padding:.55rem 1.1rem;cursor:pointer;
+}
+button:hover{filter:brightness(1.12)}
+button.done{background:var(--amber)}
+ol.rules{padding-left:0;counter-reset:r;list-style:none;margin:0}
+ol.rules li{counter-increment:r;margin:0 0 1.1rem;padding-left:3.5rem;position:relative}
+ol.rules li::before{
+  content:counter(r,decimal-leading-zero);position:absolute;left:0;top:0;
+  color:var(--green);font-weight:700;
+}
+ol.rules b{display:block;font-size:1.05rem}
+ol.rules span{color:var(--dim);font-size:.92rem}
+ul.honest{padding-left:0;list-style:none;margin:0}
+ul.honest li{margin:0 0 .9rem;padding-left:2rem;position:relative;font-size:.95rem}
+ul.honest li::before{content:"✗";position:absolute;left:0;color:var(--red);font-weight:700}
+footer{margin-top:5rem;padding-top:2rem;border-top:1px solid var(--line);color:var(--dim);font-size:.85rem}
+mark{background:none;color:var(--green);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="./">← back to the deck</a>
+
+<h1>The full prompt</h1>
+<p class="lede">
+  Everything from the talk, in one page. But read the first box before the big one —
+  that's the only part you actually need.
+</p>
+
+<h2><span class="num">00</span>The only thing worth remembering</h2>
+<p>Open a fresh Claude Code session in your project and type this. It writes the rest for you,
+   shaped to <em>your</em> repo instead of mine.</p>
+<div class="block">
+<pre id="oneliner">i want a long-running, several-days autonomous session with clean context. write me the prompt for my task.</pre>
+<div class="bar"><button data-copy="#oneliner">COPY</button>
+<span class="lede">this is slide 24</span></div>
+</div>
+
+<h2><span class="num">01</span>How to launch it</h2>
+<p><code>tmux</code> so a dropped terminal doesn't kill the run, <code>caffeinate</code> so the Mac
+   doesn't sleep through it, and bypass mode so it never stops to ask.</p>
+<div class="block">
+<pre class="cmd" id="launch">tmux new -s claude
+caffeinate -dimsu
+cd ~/your-project
+CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION=1000 claude --permission-mode bypassPermissions</pre>
+<div class="bar"><button data-copy="#launch">COPY</button></div>
+</div>
+<p class="lede">
+  Bypass mode is what makes it unattended, and it means the agents can run anything —
+  installs, Docker, pushes. Run it somewhere you're happy for that to be true.
+  Check <code>gh auth status</code> and a non-interactive <code>git push</code> work first.
+</p>
+
+<h2><span class="num">02</span>The eight rules it came up with</h2>
+<ol class="rules">
+  <li><b>The boss never opens the repo</b><span>The orchestrator writes no source code, so its context stays flat across dozens of packages.</span></li>
+  <li><b>Fresh context per unit of work</b><span>Every implementer and reviewer starts clean. Quality measurably degrades past ~100–150k tokens in one window.</span></li>
+  <li><b>State lives in files</b><span>PROGRESS.md, git history and CLAUDE.md are the memory. The conversation is not.</span></li>
+  <li><b>Never trust the report</b><span>The orchestrator re-runs verification in its own shell. Agents report optimistically.</span></li>
+  <li><b>A different agent reviews the work</b><span>Separate reviewer, bounded rounds — max 3, then the package is marked BLOCKED.</span></li>
+  <li><b>Push after every package</b><span>A crash costs one package instead of a day.</span></li>
+  <li><b>Write the resume note early</b><span>Before the conversation grows long, and read it first after any compaction. This is the survival mechanism.</span></li>
+  <li><b>Blocked is not stopped</b><span>Write a blocker brief, take the next package, stop only when nothing can proceed.</span></li>
+</ol>
+
+<h2><span class="num">03</span>The orchestrator prompt</h2>
+<p>This is what Claude Code produced for my project. Yours will differ — and it should,
+   because it will have read <em>your</em> repo. Treat this as a shape, not a template.</p>
+<div class="block">
+<pre id="full">You are the Orchestrator of an autonomous, long-running implementation session for the project in this repository. Nothing is implemented yet; the complete product and technical specification is in docs/. Your job is to deliver docs/technical/13-implementation-plan.md (WP-00 … WP-42, milestones M1–M3) end to end, without asking me anything, following docs/technical/14-orchestration-protocol.md exactly.
+
+Start-up (do this once, then never re-read the whole docs set):
+1. Read docs/README.md, docs/technical/README.md, docs/technical/14-orchestration-protocol.md, docs/technical/13-implementation-plan.md and docs/technical/PROGRESS.md. Skim docs/technical/01-architecture-overview.md. Do not read research reports or product docs yourself; the subagents read what their WP needs.
+2. Confirm the environment: git remote and push access (gh auth status), Docker running, pnpm and Node available. Record versions in the Resume note of PROGRESS.md. If something is missing, write a blocker brief in PROGRESS.md and continue with whatever WPs do not need it.
+
+Then run the loop from the protocol until every WP is DONE or BLOCKED:
+- Pick the next WP whose dependencies are DONE (plan order; parallel-safe WPs may run as two implementers in isolated worktrees).
+- Delegate the WP to the `implementer` subagent (fresh context) with: the WP id, the exact plan row, the docs it references, the notes from PROGRESS.md, and the required ≤300-word report format. You never write source code yourself.
+- Verify independently in your own shell: `pnpm -s verify` plus the WP's test target, output trimmed with `| tail -40`. Failures go back to the same implementer (max 2 fix rounds).
+- Delegate the review to the `reviewer` subagent (fresh context) with the WP id and diff range. REQUEST_CHANGES → new implementer round with the findings (max 3 rounds), then BLOCKED with the findings recorded.
+- On APPROVE: commit (conventional message `feat(scope): WP-nn &lt;title&gt;`, Signed-off-by), push to origin/main immediately, update PROGRESS.md (status, commit sha, decisions, discovered work). Never force-push, never amend pushed commits, never commit secrets.
+- Every 5 WPs and at each milestone: run verify:integration, verify:e2e and verify:ui, check `gh run list --limit 5`, fix-forward CI failures as a `ci-fix` WP, and write a milestone note in PROGRESS.md.
+
+Context rules: keep your own context small. Read only PROGRESS.md and subagent reports; use short tool outputs; keep no in-conversation task list. Before the conversation grows long, write a Resume note at the top of PROGRESS.md (current WP, round, next step); after any compaction, read it first and continue. Use the `architect` subagent (read-only) when a design question is not answered by the docs; record its answer in PROGRESS.md.
+
+Decisions you may make alone: anything the docs leave open at implementation level (choose the option most consistent with the recorded decisions, record it under the WP's notes). Product ambiguities go to docs/OPEN-QUESTIONS.md with a recommendation that you then implement. External blockers (missing credentials, unreachable services) become blocker briefs; move on to other WPs and stop only when no WP can proceed.
+
+Quality bar (non-negotiable, from the docs): clean architecture dependency rule, tests per docs/technical/10-testing-strategy.md with coverage thresholds, validation at every boundary, no secrets ever (gitleaks pre-commit from WP-00), redaction at persistence, external text treated as data, small green commits.
+
+First action: install docs/technical/CLAUDE.md.proposed as /CLAUDE.md as part of WP-00, then proceed. Begin now.</pre>
+<div class="bar"><button data-copy="#full">COPY</button>
+<span class="lede">~500 words. The repo carries the state, so the prompt can stay short.</span></div>
+</div>
+
+<h2><span class="num">04</span>What it costs you (the honest part)</h2>
+<ul class="honest">
+  <li><b>It will stop too early.</b> Not a crash — it decides it has done "enough" and writes a summary. You type <mark>continue</mark>. A Stop hook that refuses to stop while the ledger has TODO items fixes it properly.</li>
+  <li><b>There is no budget cap.</b> API mode ran $500–2000 for a plan this size. On a subscription you stall until the limit resets. You are the only brake.</li>
+  <li><b>Blast radius.</b> Bypass mode means the agents can run anything. Dedicated VM or user account, not the laptop with your production keys.</li>
+  <li><b>Quality drifts.</b> Fresh contexts don't remember conventions established three packages ago, except through the code and CLAUDE.md. Expect a cleanup package per milestone.</li>
+  <li><b>Verification is only as good as the tests it writes.</b> Weak assertions pass both the verify run and the reviewer.</li>
+  <li><b>Autocompaction will happen, several times.</b> That one is fine — it's what the resume note is for.</li>
+</ul>
+<p class="lede" style="margin-top:1.5rem">
+  Net: this is the best-known shape for a multi-day autonomous build, and it degrades
+  gracefully rather than catastrophically. It is <em>not</em> hands-off. Plan on reading the
+  ledger and the open questions once or twice a day.
+</p>
+
+<footer>
+  <p><a href="./">CLEAN CONTEXT</a> — Tech Meetup #43 · Jan Mikeš · <a href="https://janmikes.cz">janmikes.cz</a></p>
+</footer>
+
+</div>
+<script>
+document.querySelectorAll('button[data-copy]').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var el = document.querySelector(b.dataset.copy);
+    if (!el) return;
+    navigator.clipboard.writeText(el.innerText.trim()).then(function () {
+      var was = b.textContent;
+      b.textContent = 'COPIED ✓'; b.classList.add('done');
+      setTimeout(function () { b.textContent = was; b.classList.remove('done'); }, 1800);
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+/* ============================================================
+   CLEAN CONTEXT — Tech Meetup #43 — Jan Mikeš
+   High-contrast terminal deck. No build step, no dependencies.
+   ============================================================ */
+
+:root {
+  --bg:      #0a0c0d;
+  --bg-soft: #11161800;
+  --panel:   #101618;
+  --fg:      #e9ecea;
+  --dim:     #74827d;
+  --green:   #4ff08c;
+  --amber:   #ffc14d;
+  --red:     #ff6b5e;
+  --line:    #202829;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco,
+          "Cascadia Mono", "Roboto Mono", Consolas, monospace;
+}
+
+/* Root font-size scales with BOTH viewport axes so the deck reads
+   correctly on any projector aspect ratio, not just 16:9. */
+html {
+  font-size: clamp(13px, calc(0.5vw + 0.95vh), 26px);
+  background: var(--bg);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- slide frame ---------- */
+
+.deck { position: fixed; inset: 0; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5vh 6vw;
+  gap: 1.4rem;
+}
+
+.slide.is-active {
+  display: flex;
+  animation: rise 170ms ease-out;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(0.7rem); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide.is-active { animation: none; }
+}
+
+/* Speaker-note source: read by deck.js for the N overlay, never displayed. */
+.notes-src { display: none; }
+
+/* ---------- type ---------- */
+
+h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
+
+h1 { font-size: 4.6rem; line-height: 1.02; }
+h2 { font-size: 3.3rem; line-height: 1.08; }
+h3 { font-size: 1.5rem; line-height: 1.2; color: var(--dim); font-weight: 500; }
+
+p  { margin: 0; font-size: 1.35rem; }
+
+.sub     { color: var(--dim); font-size: 1.45rem; line-height: 1.4; }
+.byline  { color: var(--dim); font-size: 1.1rem; letter-spacing: 0.06em; }
+.small   { font-size: 1.05rem; color: var(--dim); }
+.tight   { line-height: 1.25; }
+
+mark {
+  background: none;
+  color: var(--green);
+  font-weight: 700;
+}
+mark.warn { color: var(--amber); }
+mark.bad  { color: var(--red); }
+
+.dim  { color: var(--dim); }
+.gr   { color: var(--green); }
+.am   { color: var(--amber); }
+.rd   { color: var(--red); }
+
+/* ---------- terminal block ---------- */
+
+.term {
+  font-family: var(--mono);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 3px;
+  padding: 1.5rem 1.8rem;
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.65;
+  white-space: pre;
+  overflow-x: auto;
+  color: var(--fg);
+  tab-size: 2;
+}
+
+.term.quote  { border-left-color: var(--dim); color: #cfd6d2; }
+.term.warn   { border-left-color: var(--amber); }
+.term.bad    { border-left-color: var(--red); }
+.term.plain  { background: none; border: none; padding: 0; }
+.term.xl     { font-size: 2rem; }
+.term.sm     { font-size: 1.2rem; }
+
+.prompt::before { content: "$ "; color: var(--green); }
+
+/* ---------- statement slides ---------- */
+
+.s-statement { justify-content: center; }
+.s-statement h1 { font-size: 5.4rem; }
+.s-statement .after { color: var(--dim); font-size: 1.5rem; margin-top: 1rem; }
+
+/* ---------- title / closing ---------- */
+
+.s-title h1 { font-size: 6.2rem; letter-spacing: -0.04em; }
+.s-title .sub { font-size: 1.8rem; max-width: 44ch; }
+.s-title .rule-line {
+  width: 7rem; height: 3px; background: var(--green); margin: 0.6rem 0;
+}
+
+.s-closing { align-items: flex-start; }
+.closing-grid {
+  display: flex; align-items: center; gap: 4rem; width: 100%; flex-wrap: wrap;
+}
+.qr {
+  width: 15rem; height: 15rem; flex: none;
+  background: #fff; padding: 0.5rem; border-radius: 6px;
+}
+.qr img { width: 100%; height: 100%; display: block; }
+.url {
+  font-size: 2.6rem; font-weight: 700; color: var(--green);
+  word-break: break-all; line-height: 1.15;
+}
+
+/* ---------- numbers slide ---------- */
+
+.numbers { display: grid; gap: 1rem; font-size: 2.6rem; line-height: 1.2; }
+.numbers .n { color: var(--green); font-weight: 700; display: inline-block;
+              min-width: 3ch; text-align: right; margin-right: 1.2rem; }
+
+/* ---------- poll ladder ---------- */
+
+.ladder { display: grid; gap: 0.75rem; font-size: 2.1rem; }
+.ladder li { list-style: none; }
+.ladder .last { color: var(--green); font-weight: 700; font-size: 2.6rem; }
+ul.ladder { margin: 0; padding: 0; }
+
+/* ---------- checklist / X list ---------- */
+
+.xlist { margin: 0; padding: 0; display: grid; gap: 0.8rem; font-size: 1.9rem; }
+.xlist li { list-style: none; }
+.xlist .x { color: var(--red); margin-right: 1rem; font-weight: 700; }
+
+.deflist { display: grid; gap: 1.1rem; font-size: 1.5rem; }
+.deflist .k {
+  color: var(--amber); font-weight: 700; display: inline-block;
+  min-width: 15ch;
+}
+
+/* ---------- rule slides (the fly-by) ---------- */
+
+.s-rule { justify-content: center; gap: 1.8rem; }
+.s-rule h2 { font-size: 3.6rem; max-width: 24ch; }
+.s-rule .why {
+  font-size: 1.65rem; color: var(--fg);
+}
+.s-rule .why .arrow { color: var(--green); font-weight: 700; margin-right: 0.6rem; }
+
+/* corner altitude marker */
+.marker {
+  position: absolute;
+  top: 4vh; right: 6vw;
+  font-size: 1rem;
+  color: var(--dim);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.marker .cur { color: var(--green); font-weight: 700; }
+
+/* act label, bottom-left */
+.act {
+  position: absolute;
+  bottom: 4vh; left: 6vw;
+  font-size: 0.95rem;
+  color: var(--dim);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ---------- flight-mode splash ---------- */
+
+.s-flight { align-items: center; text-align: center; }
+.s-flight .plane { font-size: 5rem; line-height: 1; color: var(--green); }
+.s-flight h2 { font-size: 3rem; }
+
+/* ---------- diagram ---------- */
+
+.diagram {
+  font-size: 1.3rem; line-height: 1.5; white-space: pre;
+  color: var(--fg);
+}
+.diagram .note { color: var(--dim); }
+
+/* ---------- copy button ---------- */
+
+.copy-wrap { display: flex; align-items: center; gap: 1.2rem; margin-top: 0.4rem; }
+.copy-btn {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--bg);
+  background: var(--green);
+  border: none;
+  border-radius: 3px;
+  padding: 0.7rem 1.4rem;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.copy-btn:hover { filter: brightness(1.12); }
+.copy-btn.done { background: var(--amber); }
+
+a { color: var(--green); }
+a.quiet { color: var(--dim); text-decoration: none; }
+a.quiet:hover { color: var(--green); }
+
+/* ---------- chrome: progress, counter, notes, overview ---------- */
+
+.progress {
+  position: fixed; bottom: 0; left: 0; height: 3px;
+  background: var(--green); width: 0;
+  transition: width 170ms ease-out; z-index: 40;
+}
+
+.counter {
+  position: fixed; bottom: 3.2vh; right: 6vw;
+  font-size: 0.95rem; color: var(--dim); z-index: 40;
+  letter-spacing: 0.1em;
+}
+.counter .cur { color: var(--fg); }
+
+.notes {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  max-height: 42vh; overflow-y: auto;
+  background: #060809;
+  border-top: 2px solid var(--amber);
+  padding: 1.4rem 6vw 2rem;
+  font-size: 1.1rem; line-height: 1.55; color: #c6cfca;
+  z-index: 50; display: none;
+}
+.notes.is-open { display: block; }
+.notes b, .notes strong { color: var(--amber); }
+.notes .hdr {
+  color: var(--amber); font-size: 0.85rem; letter-spacing: 0.16em;
+  text-transform: uppercase; margin-bottom: 0.6rem;
+}
+
+.help {
+  position: fixed; inset: 0; background: rgba(6,8,9,0.96);
+  z-index: 60; display: none; padding: 8vh 8vw;
+  font-size: 1.3rem; line-height: 2;
+}
+.help.is-open { display: block; }
+.help kbd {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 3px; padding: 0.15em 0.6em; color: var(--green);
+  font-family: var(--mono); font-weight: 700; margin-right: 0.8rem;
+  display: inline-block; min-width: 9ch; text-align: center;
+}
+
+/* jump list (press O) — a titled index beats unreadable thumbnails,
+   and slide type is rem-based so it would not scale into one anyway. */
+.jump {
+  position: fixed; inset: 0; z-index: 55;
+  background: #060809;
+  padding: 6vh 8vw; overflow-y: auto;
+  display: none;
+}
+.jump.is-open { display: block; }
+.jump h4 {
+  margin: 0 0 1.5rem; font-size: 0.9rem; color: var(--dim);
+  letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+}
+.jump ol { margin: 0; padding: 0; list-style: none;
+           columns: 2; column-gap: 4rem; }
+.jump li {
+  display: flex; gap: 1rem; align-items: baseline;
+  padding: 0.35rem 0.6rem; margin: 0 0 0.15rem;
+  cursor: pointer; border-radius: 3px; font-size: 1.05rem;
+  break-inside: avoid;
+}
+.jump li:hover { background: var(--panel); }
+.jump li.cur { background: var(--panel); box-shadow: inset 3px 0 0 var(--green); }
+.jump li.cur .t { color: var(--green); }
+.jump .i { color: var(--dim); min-width: 2.5ch; text-align: right; flex: none; }
+.jump .t { color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jump .a { color: var(--dim); font-size: 0.8rem; margin-left: auto; flex: none; }
+
+/* ---------- print / PDF export ---------- */
+
+@media print {
+  @page { size: 297mm 167mm; margin: 0; }
+  html { font-size: 15px; }
+  body { overflow: visible; background: var(--bg); }
+  .deck { position: static; }
+  .slide {
+    position: relative; inset: auto; display: flex !important;
+    width: 297mm; height: 167mm; page-break-after: always;
+    animation: none; break-inside: avoid;
+  }
+  .progress, .counter, .notes, .help, .copy-btn { display: none !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

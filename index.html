@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CLEAN CONTEXT — running Claude Code for days · Jan Mikeš</title>
+<meta name="description" content="How to run Claude Code autonomously for days without remembering anything. Tech Meetup #43, Jan Mikeš.">
+<meta property="og:title" content="CLEAN CONTEXT">
+<meta property="og:description" content="How to run Claude Code for days without remembering anything. Tech Meetup #43.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈</text></svg>">
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ══════════════════ ACT 0 · HOOK ══════════════════ -->
+
+<!-- 1 -->
+<section class="slide s-title">
+  <h1>CLEAN<br>CONTEXT</h1>
+  <div class="rule-line"></div>
+  <p class="sub">how to run Claude Code for days<br>without remembering anything</p>
+  <p class="byline">JAN MIKEŠ · JANMIKES.CZ · TECH MEETUP #43</p>
+  <aside class="notes-src">Ten seconds. Name, and straight into the poll — do not do a bio, there is no time and nobody cares yet.</aside>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <h2>YOUR LONGEST<br>CLAUDE CODE SESSION?</h2>
+  <p class="sub">hands up. keep them up.</p>
+  <ul class="ladder">
+    <li>10 minutes</li>
+    <li>1 hour</li>
+    <li>4 hours</li>
+    <li>12 hours</li>
+    <li>2 days</li>
+    <li class="last">A WEEK?</li>
+  </ul>
+  <div class="act">act 0 · hook</div>
+  <aside class="notes-src"><b>90 seconds. This is the whole opening.</b> Ladder format: everyone puts a hand up, hands drop as you climb. Last person standing gets the mic for five seconds — ask them what they were building. <b>Remember their name.</b> You call back to them on slide 23.</aside>
+</section>
+
+<!-- 3 -->
+<section class="slide s-statement">
+  <h1>MY RECORD:<br><br>I DON'T KNOW.<br>I DON'T WANT<br>TO REMEMBER.</h1>
+  <div class="act">act 0 · hook</div>
+  <aside class="notes-src">Let it sit. Beat. Then, flat delivery: <b>"That's not a punchline. That's the architecture."</b> Hard cut to the next slide — do not explain the joke.</aside>
+</section>
+
+<!-- ══════════════════ ACT 1 · WHAT HAPPENED ══════════════════ -->
+
+<!-- 4 -->
+<section class="slide">
+  <h3>ONE SESSION, LAST MONTH</h3>
+  <div class="numbers">
+    <div><span class="n">42</span>work packages</div>
+    <div><span class="n">3</span>milestones</div>
+    <div><span class="n">0</span>lines of code written by me</div>
+    <div><span class="n">1</span>paste</div>
+  </div>
+  <div class="act">act 1 · what happened</div>
+  <aside class="notes-src">Fast. The only job of this slide is to make them want the rest. Land hard on <b>"one paste"</b> — that is the promise you spend the next twelve minutes paying off.</aside>
+</section>
+
+<!-- 5 -->
+<section class="slide s-statement">
+  <h1>THE CONVERSATION<br>IS NOT<br>THE MEMORY.</h1>
+  <p class="after">memory = <mark>PROGRESS.md</mark> + <mark>git history</mark> + <mark>CLAUDE.md</mark></p>
+  <div class="act">act 1 · what happened</div>
+  <aside class="notes-src">If they remember one <i>concept</i> from tonight, this is it. The context window will fill. So stop using it as storage. Everything else in the talk is a consequence of this one line.</aside>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <h3>THE SHAPE</h3>
+  <pre class="diagram">        <span class="gr">ORCHESTRATOR</span>          <span class="note">← reads only the ledger</span>
+        (never reads code)      <span class="note">~6-10k tokens / package</span>
+              │
+      ┌───────┼────────┐
+      ▼       ▼        ▼
+  implementer  reviewer  architect
+   <span class="gr">(fresh)</span>    <span class="gr">(fresh)</span>   (read-only)
+      │
+      ▼
+  PROGRESS.md ── commit ── push</pre>
+  <div class="act">act 1 · what happened</div>
+  <aside class="notes-src">One sentence lands this whole slide: <b>"The orchestrator is a project manager who has never opened the repo. That's not a bug, that's the entire point."</b></aside>
+</section>
+
+<!-- ══════════════════ ACT 2 · THE RELEASE ══════════════════ -->
+
+<!-- 7 -->
+<section class="slide">
+  <h1>YOU DON'T NEED TO<br>REMEMBER<br>ANY OF THIS.</h1>
+  <p class="sub">Claude Code will do all of it for you.</p>
+  <p class="sub"><span class="dim">the trick is on the last slide.<br>that's the one you photograph.</span></p>
+  <div class="act">act 2 · the release</div>
+  <aside class="notes-src"><b>This is the pressure valve — say it out loud.</b> "Nothing in the next four minutes is homework. I'll give you the actual thing you need at the end. This part is just because you're curious." Also drop the URL verbally here: it's already online, that's <i>why</i> you don't need notes.</aside>
+</section>
+
+<!-- 8 -->
+<section class="slide s-flight">
+  <div class="plane">✈</div>
+  <h2>FASTEN SEATBELTS</h2>
+  <p class="sub">cruising altitude · 8 rules · 4 minutes</p>
+  <aside class="notes-src">Fifteen seconds. Energy change. From here the pace doubles — short slides, no elaboration.</aside>
+</section>
+
+<!-- ══════════════════ ACT 3 · THE FLY-BY ══════════════════ -->
+
+<!-- 9 -->
+<section class="slide">
+  <div class="marker">preflight</div>
+  <h3>LAUNCH</h3>
+  <pre class="term"><span class="gr">$</span> tmux new -s claude
+<span class="gr">$</span> caffeinate -dimsu
+<span class="gr">$</span> claude --permission-mode <mark>bypassPermissions</mark></pre>
+  <div class="act">act 3 · fly-by</div>
+  <aside class="notes-src">Point at <b>bypassPermissions</b>: "This is the 'I trust you' button. Not on the laptop with your prod SSH keys. Ask me how I know. — Actually, don't." <br><br>Don't explain tmux/caffeinate yet. They're the setup for the callback on slide 21.</aside>
+</section>
+
+<!-- 10 -->
+<section class="slide s-rule">
+  <div class="marker"><span class="cur">01</span> / 08 · cruising</div>
+  <h2>THE BOSS NEVER<br>OPENS THE REPO</h2>
+  <pre class="term quote">"You never write source code yourself."</pre>
+  <p class="why"><span class="arrow">→</span> its context stays <mark>flat forever</mark></p>
+  <div class="act">act 3 · fly-by</div>
+  <aside class="notes-src">25 seconds. Read the rule, read the why, move. No elaboration — you already told them this isn't homework.</aside>
+</section>
+
+<!-- 11 -->
+<section class="slide s-rule">
+  <div class="marker"><span class="cur">02</span> / 08 · cruising</div>
+  <h2>FRESH CONTEXT PER<br>UNIT OF WORK</h2>
+  <pre class="term quote">"Delegate the WP to the implementer
+ subagent (fresh context)"</pre>
+  <p class="why"><span class="arrow">→</span> quality dies past <mark>~100–150k tokens</mark></p>
+  <div class="act">act 3 · fly-by</div>
+  <aside class="notes-src">The orchestrator is fine forever. The <i>implementers</i> are the ones with a ceiling. This is why any package bigger than a day gets split before it's delegated.</aside>
+</section>
+
+<!-- 12 -->
+<section class="slide s-rule">
+  <div class="marker"><span class="cur">03</span> / 08 · cruising</div>
+  <h2>STATE LIVES<br>IN FILES</h2>
+  <pre class="term quote">"Read only PROGRESS.md
+ and subagent reports"</pre>
+  <p class="why"><span class="arrow">→</span> files survive compaction. <mark class="warn">chat doesn't</mark></p>
+  <div class="act">act 3 · fly-by</div>
+  <aside class="notes-src">Callback to slide 5. Same idea, now as an operational rule.</aside>
+</section>
+
+<!-- 13 -->
+<section class="slide s-rule">
+  <div class="marker"><span class="cur">04</span> / 08 · cruising</div>
+  <h2>NEVER TRUST<br>THE REPORT</h2>
+  <pre class="term quote">"Verify independently in your own shell"</pre>
+  <p class="why"><span class="arrow">→</span> agents report <mark class="warn">optimistically</mark></p>
+  <div class="act">act 3 · fly-by</div>
+  <aside class="notes-src">The joke: <b>"...like a junior dev at 17:55 on a Friday."</b> Not malicious. Just optimistic. This is the single most valuable rule in the list and it costs one line of prompt.</aside>
+</section>
+
+<!-- 14 -->
+<section class="slide s-rule">
+  <div class="marker"><span class="cur">05</span> / 08 · cruising</div>
+  <h2>A DIFFERENT AGENT<br>REVIEWS THE WORK</h2>
+  <pre class="term quote">"REQUEST_CHANGES → new round (max 3),
+ then BLOCKED"</pre>
+  <p class="why"><span class="arrow">→</span> <mark>bounded loops.</mark> nothing fixes forever</p>
+  <div class="act">act 3 · fly-by</div>
+  <aside class="notes-src">Emphasise <b>max 3</b>. Without a bound, a bad package eats your whole night and your whole quota.</aside>
+</section>
+
+<!-- 15 -->
+<section class="slide s-rule">
+  <div class="marker"><span class="cur">06</span> / 08 · cruising</div>
+  <h2>PUSH AFTER<br>EVERY PACKAGE</h2>
+  <pre class="term quote">"push to origin/main immediately"</pre>
+  <p class="why"><span class="arrow">→</span> a crash costs <mark>one package</mark>, not a day</p>
+  <div class="act">act 3 · fly-by</div>
+  <aside class="notes-src">Small green commits. If someone looks skeptical about pushing to main unattended: pre-commit secret scan plus the reviewer agent are the guardrails, and it's a fresh repo.</aside>
+</section>
+
+<!-- 16 -->
+<section class="slide s-rule">
+  <div class="marker"><span class="cur">07</span> / 08 · cruising</div>
+  <h2>WRITE THE RESUME<br>NOTE EARLY</h2>
+  <pre class="term quote">"Before the conversation grows long…
+ after any compaction, READ IT FIRST"</pre>
+  <p class="why"><span class="arrow">→</span> this is the <mark>whole survival mechanism</mark></p>
+  <div class="act">act 3 · fly-by</div>
+  <aside class="notes-src">If you had to keep exactly one rule from the eight, it's this one. Everything else is optimisation; this is what makes the session survive itself.</aside>
+</section>
+
+<!-- 17 -->
+<section class="slide s-rule">
+  <div class="marker"><span class="cur">08</span> / 08 · descending</div>
+  <h2>BLOCKED ≠ STOPPED</h2>
+  <pre class="term quote">"move on to other WPs, stop only
+ when no WP can proceed"</pre>
+  <p class="why"><span class="arrow">→</span> there is no "ask Jan". <mark class="warn">Jan is asleep</mark></p>
+  <div class="act">act 3 · fly-by</div>
+  <aside class="notes-src">Biggest laugh of the fly-by section. Deliver it dry. Then straight into turbulence.</aside>
+</section>
+
+<!-- ══════════════════ ACT 4 · TURBULENCE ══════════════════ -->
+
+<!-- 18 -->
+<section class="slide">
+  <h3>TURBULENCE</h3>
+  <h1>AUTOCOMPACT<br>IS NOT THE ENEMY.</h1>
+  <pre class="term warn">it will happen. several times.
+<mark class="warn">IT'S SUPPOSED TO.</mark>
+
+worst case = one repeated review round
+nothing commits until it's green</pre>
+  <div class="act">act 4 · turbulence</div>
+  <aside class="notes-src"><b>Ask first, then reveal:</b> "Hands up — who has seen 'compacting conversation' and felt a small death?" <br><br>Wait for hands. Then the slide. This is your best transition: turbulence that turns out to be completely normal.</aside>
+</section>
+
+<!-- 19 -->
+<section class="slide">
+  <h2>THERE IS NO<br>AUTOPILOT LIMIT</h2>
+  <pre class="term bad">no budget cap.
+no per-agent limit.
+no "stop at $200".
+
+API:          <mark class="warn">$500 – $2000</mark>
+Subscription: you stall until reset</pre>
+  <h1 style="font-size:3.4rem">WE ARE THE BRAKE.</h1>
+  <div class="act">act 4 · turbulence</div>
+  <aside class="notes-src"><b>Ask:</b> "Hands up who has hit a weekly limit." Guaranteed laugh in this room. <br><br>Be honest about the number — the credibility of the whole talk rests on not overselling this.</aside>
+</section>
+
+<!-- 20 -->
+<section class="slide">
+  <h2>IT WILL LAND EARLY</h2>
+  <p class="sub">the most likely failure is not a crash.</p>
+  <p class="sub">it decides it has done <span class="dim">"enough"</span><br>and writes you a lovely summary.</p>
+  <pre class="term warn">  "I have completed the implementation!"</pre>
+  <pre class="term">you type:  <mark>continue</mark></pre>
+  <div class="act">act 4 · turbulence</div>
+  <aside class="notes-src">Optional extra beat if you have time: a Stop hook that refuses to stop while the ledger still has TODO items — the ralph-loop pattern. Cut it if you're behind.</aside>
+</section>
+
+<!-- 21 -->
+<section class="slide">
+  <h2>THINGS THAT KILLED<br>MY SESSION</h2>
+  <ul class="xlist">
+    <li><span class="x">✗</span>screensaver</li>
+    <li><span class="x">✗</span>laptop lid</li>
+    <li><span class="x">✗</span>dropped SSH</li>
+    <li><span class="x">✗</span>rate limit at 03:41</li>
+    <li><span class="x">✗</span>"I have completed the implementation!"</li>
+  </ul>
+  <p class="sub dim">…that's why slide 9 had <mark>tmux</mark> and <mark>caffeinate</mark>.</p>
+  <div class="act">act 4 · turbulence</div>
+  <aside class="notes-src"><b>Callback payoff.</b> If they laughed at bypassPermissions on slide 9, this is where it pays off. Land the last line with a shrug.</aside>
+</section>
+
+<!-- 22 -->
+<section class="slide">
+  <h3>AND THE REST OF THE BILL</h3>
+  <div class="deflist">
+    <div><span class="k">BLAST RADIUS</span> bypass = it can run anything</div>
+    <div><span class="k">QUALITY DRIFT</span> fresh context forgets your conventions</div>
+    <div><span class="k">TESTS LIE</span> weak assertions pass verify AND review</div>
+    <div><span class="k">THE PLAN LIES</span> 42 packages written without running code</div>
+  </div>
+  <p class="sub">it degrades <mark>gracefully</mark>. it does not degrade to zero.</p>
+  <div class="act">act 4 · turbulence · CUT IF LONG</div>
+  <aside class="notes-src"><b>This is the first slide to cut if you are over time.</b> If you keep it: "Check the ledger twice a day. Like a tamagotchi."</aside>
+</section>
+
+<!-- ══════════════════ ACT 5 · LANDING ══════════════════ -->
+
+<!-- 23 -->
+<section class="slide s-statement">
+  <h1>QUICK — NAME THREE<br>OF THE EIGHT RULES.</h1>
+  <p class="after">…</p>
+  <p class="after">exactly. and it <mark>doesn't matter</mark>.</p>
+  <div class="act">act 5 · landing</div>
+  <aside class="notes-src">Actually pause. Let it get uncomfortable for two full seconds — the silence <i>is</i> the joke. Optional callback: point at the poll winner from slide 2 — "even you. Your record session was forty sessions in a trench coat."</aside>
+</section>
+
+<!-- 24 -->
+<section class="slide">
+  <h3>THE ONLY SLIDE THAT MATTERS</h3>
+  <pre class="term xl" id="the-prompt"><span class="gr">$</span> claude
+
+<mark>&gt;</mark> i want a long-running, several-days
+  autonomous session with clean context.
+  <mark>write me the prompt for my task.</mark></pre>
+  <div class="copy-wrap">
+    <button class="copy-btn" data-text="i want a long-running, several-days autonomous session with clean context. write me the prompt for my task.">COPY</button>
+    <span class="small">…or scan the QR on the next slide</span>
+  </div>
+  <div class="act">act 5 · landing</div>
+  <aside class="notes-src"><b>HOLD THIS SLIDE. This is the photo.</b> Wait for phones to come up before you talk.<br><br>"Every single rule I just flew through — the orchestrator, the fresh contexts, the ledger, the resume note, the bounded review loops — I didn't invent any of it. I asked <i>that</i>. What I showed you is Claude's answer, pasted."</aside>
+</section>
+
+<!-- 25 -->
+<section class="slide">
+  <h2>CLAUDE CLAUDING</h2>
+  <pre class="term">it knows its own subagents
+it knows its own hooks
+it knows its own compaction
+it knows its own failure modes</pre>
+  <h1 style="font-size:3.6rem">STOP COLLECTING PROMPTS.<br><mark>ASK CLAUDE HOW TO CLAUDE.</mark></h1>
+  <div class="act">act 5 · landing</div>
+  <aside class="notes-src">The actual thesis. Prompt libraries go stale in weeks; the model ships with current knowledge of its own harness. Ask it.</aside>
+</section>
+
+<!-- 26 -->
+<section class="slide s-closing">
+  <div class="closing-grid">
+    <div class="qr"><img src="qr.svg" alt="QR code to techmeetup-43-1.janmikes.cz"></div>
+    <div>
+      <p class="url">techmeetup-43-1.<br>janmikes.cz</p>
+      <p class="sub" style="margin-top:1rem">full deck · <a href="prompt.html">the full prompt</a> · the 8 rules</p>
+      <p class="small">(you didn't need to write any of it down)</p>
+      <p class="byline" style="margin-top:1.4rem">JAN MIKEŠ · JANMIKES.CZ</p>
+    </div>
+  </div>
+  <h2 style="margin-top:2rem">so — who's beating<br>the record tonight?</h2>
+  <aside class="notes-src">Leave this up for the entire Q&amp;A. The closing question is bait — it hands the room a conversation instead of dead air.</aside>
+</section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"><span class="cur">1</span> / 26</div>
+
+<div class="notes" id="notes">
+  <div class="hdr">speaker notes — press N to hide</div>
+  <div id="notes-body"></div>
+</div>
+
+<nav class="jump" id="jump">
+  <h4>jump to slide — press O or esc to close</h4>
+  <ol id="jump-list"></ol>
+</nav>
+
+<div class="help" id="help">
+  <p><kbd>enter</kbd> <kbd>space</kbd> <kbd>→</kbd> next slide</p>
+  <p><kbd>←</kbd> <kbd>backspace</kbd> previous slide</p>
+  <p><kbd>N</kbd> speaker notes</p>
+  <p><kbd>O</kbd> jump to slide</p>
+  <p><kbd>F</kbd> fullscreen</p>
+  <p><kbd>home</kbd> <kbd>end</kbd> first / last slide</p>
+  <p><kbd>?</kbd> close this help</p>
+</div>
+
+<script src="deck.js"></script>
+</body>
+</html>
