@@ -150,6 +150,19 @@ mark.bad  { color: var(--red); }
 
 /* ---------- title / closing ---------- */
 
+.title-grid {
+  display: flex; align-items: center; gap: 5vw; width: 100%;
+}
+.title-grid > div { flex: 1 1 auto; min-width: 0; }
+/* The source files are already square, so the circle needs no aspect-ratio
+   or object-fit — and that combination stopped Chrome painting the image. */
+.portrait {
+  flex: 0 0 auto;
+  width: 28vw; max-width: 20rem; height: auto;
+  border-radius: 50%;
+  border: 3px solid var(--line);
+}
+
 .s-title h1 { font-size: 6.2rem; letter-spacing: -0.04em; }
 .s-title .sub { font-size: 1.8rem; max-width: 44ch; }
 .s-title .rule-line {
@@ -203,27 +216,13 @@ ul.ladder { margin: 0; padding: 0; }
   font-size: 1.65rem; color: var(--fg);
 }
 .s-rule .why .arrow { color: var(--green); font-weight: 700; margin-right: 0.6rem; }
+.rule-sub { font-size: 1.15rem; color: var(--dim); margin-top: -0.6rem; }
+.diagram .note { color: var(--dim); }
 
-/* corner altitude marker */
-.marker {
-  position: absolute;
-  top: 4vh; right: 6vw;
-  font-size: 1rem;
-  color: var(--dim);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.marker .cur { color: var(--green); font-weight: 700; }
-
-/* act label, bottom-left */
-.act {
-  position: absolute;
-  bottom: 4vh; left: 6vw;
-  font-size: 0.95rem;
-  color: var(--dim);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
+/* Flight/act labels are not shown on the slides. They stay in the markup
+   because the jump list reads .act for its right-hand column and for the
+   CUT IF LONG flag on slide 22. */
+.marker, .act { display: none; }
 
 /* ---------- flight-mode splash ---------- */
 
@@ -371,6 +370,8 @@ a.quiet:hover { color: var(--green); }
   .byline { font-size: 0.8rem; }
   .small { font-size: 0.85rem; }
 
+  .title-grid { flex-direction: column-reverse; align-items: flex-start; gap: 1.5rem; }
+  .portrait { width: 8rem; }
   .s-title h1 { font-size: 2.9rem; }
   .s-title .sub { font-size: 1.15rem; }
   .s-statement h1 { font-size: 2.4rem; }
@@ -392,10 +393,8 @@ a.quiet:hover { color: var(--green); }
 
   .s-rule h2 { font-size: 2rem; }
   .s-rule .why { font-size: 1.05rem; }
+  .rule-sub { font-size: 0.9rem; margin-top: -0.3rem; }
   .s-rule { gap: 1.1rem; }
-
-  .marker { top: 1.2rem; right: auto; left: 5vw; font-size: 0.75rem; }
-  .act { bottom: auto; top: 1.2rem; left: 5vw; display: none; }
 
   .s-flight .plane { font-size: 3rem; }
   .s-flight h2 { font-size: 1.9rem; }

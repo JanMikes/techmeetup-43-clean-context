@@ -50,7 +50,12 @@ slide, edit the text inside it.
   hard-code a hex value in a slide.
 - `<pre class="term">` — terminal block. Add `xl` for bigger, `quote` for a prompt excerpt.
 - `<aside class="notes-src">` — speaker notes for that slide, shown with `N`.
-- `.marker` (top right) and `.act` (bottom left) are the flight/act labels.
+- `.marker` and `.act` are hidden on the slides (`display: none`) but kept in
+  the markup: the jump list reads `.act` for its right-hand column and for the
+  `CUT IF LONG` flag on slide 22.
+- The title portrait is `janmikes-{320,480,640}.webp`, square crops served via
+  `srcset`. Regenerate from a new source with:
+  `magick photo.png -crop WxH+X+Y +repage -resize 640x640 -strip -quality 82 janmikes-640.webp`
 
 Slide count in the counter is derived automatically, so adding or removing a
 section needs no other change.

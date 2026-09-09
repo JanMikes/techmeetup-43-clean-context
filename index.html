@@ -18,10 +18,19 @@
 
 <!-- 1 -->
 <section class="slide s-title">
-  <h1>CLEAN<br>CONTEXT</h1>
-  <div class="rule-line"></div>
-  <p class="sub">how to run Claude Code for days<br>without remembering anything</p>
-  <p class="byline">JAN MIKEŠ · JANMIKES.CZ · TECH MEETUP #43</p>
+  <div class="title-grid">
+    <div>
+      <h1>CLEAN<br>CONTEXT</h1>
+      <div class="rule-line"></div>
+      <p class="sub">how to run Claude Code for days<br>without remembering anything</p>
+      <p class="byline">JAN MIKEŠ · JANMIKES.CZ · TECH MEETUP #43</p>
+    </div>
+    <img class="portrait" alt="Jan Mikeš"
+         src="janmikes-480.webp"
+         srcset="janmikes-320.webp 320w, janmikes-480.webp 480w, janmikes-640.webp 640w"
+         sizes="(max-width: 860px) 40vw, 28vw"
+         width="480" height="480" decoding="async">
+  </div>
   <aside class="notes-src">Ten seconds. Name, and straight into the poll — do not do a bio, there is no time and nobody cares yet.</aside>
 </section>
 
@@ -52,7 +61,7 @@
 
 <!-- 4 -->
 <section class="slide">
-  <h3>ONE SESSION, LAST MONTH</h3>
+  <h3>ONE SESSION, LAST WEEK</h3>
   <div class="numbers">
     <div><span class="n">42</span>work packages</div>
     <div><span class="n">3</span>milestones</div>
@@ -74,15 +83,15 @@
 <!-- 6 -->
 <section class="slide">
   <h3>THE SHAPE</h3>
-  <pre class="diagram">        <span class="gr">ORCHESTRATOR</span>          <span class="note">← reads only the ledger</span>
-        (never reads code)      <span class="note">~6-10k tokens / package</span>
-              │
-      ┌───────┼────────┐
-      ▼       ▼        ▼
+  <pre class="diagram">            <span class="gr">ORCHESTRATOR</span>      <span class="note">← reads only the ledger</span>
+         (never reads code)   <span class="note">~6-10k tokens / package</span>
+                  │
+       ┌──────────┼──────────┐
+       ▼          ▼          ▼
   implementer  reviewer  architect
-   <span class="gr">(fresh)</span>    <span class="gr">(fresh)</span>   (read-only)
-      │
-      ▼
+    <span class="gr">(fresh)</span>    <span class="gr">(fresh)</span>  (read-only)
+       │
+       ▼
   PROGRESS.md ── commit ── push</pre>
   <div class="act">act 1 · what happened</div>
   <aside class="notes-src">One sentence lands this whole slide: <b>"The orchestrator is a project manager who has never opened the repo. That's not a bug, that's the entire point."</b></aside>
@@ -113,8 +122,13 @@
 <section class="slide">
   <div class="marker">preflight</div>
   <h3>LAUNCH</h3>
-  <pre class="term"><span class="gr">$</span> tmux new -s claude
+  <pre class="term"><span class="dim"># survive a dropped terminal / closed SSH</span>
+<span class="gr">$</span> tmux new -s claude
+
+<span class="dim"># stop the machine sleeping — macOS.
+# Linux: systemd-inhibit · Windows: powercfg / caffeine</span>
 <span class="gr">$</span> caffeinate -dimsu
+
 <span class="gr">$</span> claude --permission-mode <mark>bypassPermissions</mark></pre>
   <div class="act">act 3 · fly-by</div>
   <aside class="notes-src">Point at <b>bypassPermissions</b>: "This is the 'I trust you' button. Not on the laptop with your prod SSH keys. Ask me how I know. — Actually, don't." <br><br>Don't explain tmux/caffeinate yet. They're the setup for the callback on slide 21.</aside>
@@ -124,6 +138,7 @@
 <section class="slide s-rule">
   <div class="marker"><span class="cur">01</span> / 08 · cruising</div>
   <h2>THE BOSS NEVER<br>OPENS THE REPO</h2>
+  <p class="rule-sub">the <mark>orchestrator</mark> — the one session you actually talk to</p>
   <pre class="term quote">"You never write source code yourself."</pre>
   <p class="why"><span class="arrow">→</span> its context stays <mark>flat forever</mark></p>
   <div class="act">act 3 · fly-by</div>
@@ -308,7 +323,7 @@ Subscription: you stall until reset</pre>
 it knows its own hooks
 it knows its own compaction
 it knows its own failure modes</pre>
-  <h1 class="h1-mid">STOP COLLECTING PROMPTS.<br><mark>ASK CLAUDE HOW TO CLAUDE.</mark></h1>
+  <h1 class="h1-mid">DON'T ASK ME.<br>STOP COLLECTING PROMPTS.<br><mark>ASK CLAUDE HOW TO CLAUDE.</mark></h1>
   <div class="act">act 5 · landing</div>
   <aside class="notes-src">The actual thesis. Prompt libraries go stale in weeks; the model ships with current knowledge of its own harness. Ask it.</aside>
 </section>
